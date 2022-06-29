@@ -22,11 +22,6 @@ conn.connect(function (err){
     console.log("Conexión exitosa a la base de datos");
 });
 
-
-app.get('/',function(req,res) {
-    res.send('Pagina de inicio');
-});
-
 app.post('/servicio/create/:idmascota',function (req, res) {
 
     let parametros = [parseInt(req.params.idmascota), req.body.cuenta_idcuenta, req.body.hora_inicio, req.body.duracion, req.body.entrega, req.body.responsable_idresponsable];
@@ -57,3 +52,11 @@ app.post('/servicio/create/:idmascota',function (req, res) {
 app.listen(8080,function (){
   console.log("Servidor abierto en el puerto 8080");
 });
+
+app.get('/',function(req,res) {
+    res.send('HOLI');
+});
+
+
+
+

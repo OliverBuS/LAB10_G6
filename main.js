@@ -61,7 +61,16 @@ app.get("/cuenta/get/:id",function (req, res){
     let params = [idcuenta];
     conn.query(sql,params,function (err,results){
         if (err) throw err;
-        res.json(results);
+        if (results.length == 0) {
+            res.json({
+                result: "0"
+            });
+        } else {
+            res.json({
+                result: r.length,
+                data: r
+            })
+        }
     });
 
 });

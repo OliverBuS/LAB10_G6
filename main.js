@@ -126,6 +126,33 @@ app.get(['/mascota/get/:id', '/mascota/get'],function(req,res) {
     }
 
 });
+
+app.post('/mascota/create/',function (req, res) {
+
+    let parametros = [req.body.idmascota, req.body.nombre, req.body.anho, req.body.historia, req.body.observaciones,req.body.sexo, req.body.raza_especie_idraza, req.body.raza_otros, req.body.cuenta_idcuenta];
+    let query = "Insert into mascota(idmascota, nombre, anho, historia, observaciones,sexo,raza_especie_idraza,raza_otros,cuenta_idcuenta) values(?,?,?,?,?,?,?,?,?)";
+    conn.query(query, parametros, function (err,result){
+        if(err){
+            res.json({
+                status:"error",
+                message:"Ha ocurrido un problema, revise que los parametros sean correctos"
+            });
+            return;
+        }
+        conn.query("select * from mascota where idmascota=(select last_insert_id())", function (err,result){
+            if(err){
+                res.json({
+                    status:"error",
+                    message:"Ha ocurrido un problema y no se ha guardado correctamente la mascota"
+                });
+                return;
+            }
+            res.json(result);
+        })
+    });
+
+});
+
 app.listen(8080,function (){
   console.log("Servidor abierto en el puerto 8080");
 });

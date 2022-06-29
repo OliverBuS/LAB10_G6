@@ -53,7 +53,41 @@ app.post('/servicio/create/:idmascota',function (req, res) {
 
 });
 
+app.get("/cuenta/get/:id",function (req, res){
+
+    let idcuenta = req.params.id;
+    let sql = "SELECT * FROM cuenta WHERE idcuenta = ?";
+
+    let params = [idcuenta];
+    conn.query(sql,params,function (err,results){
+        if (err) throw err;
+        res.json(results);
+    });
+
+});
+
+app.get("/cuenta/get",function (req, res){
+
+    let sql = "SELECT * FROM cuenta";
+
+    conn.query(sql,function (err,result){
+
+        if (err){
+            res.json({err: "Ocurrio un error"});
+            console.error(err);
+        }else{
+            for (let i = 0; i < result.length; i++) {
+                result[i]["Indice"] = "número" + (i + 1);
+            }
+            res.json(result)
+        }
+
+    });
+
+});
+
 
 app.listen(8080,function (){
   console.log("Servidor abierto en el puerto 8080");
 });
+

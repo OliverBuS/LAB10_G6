@@ -63,7 +63,7 @@ app.get("/cuenta/get/:id",function (req, res){
         if (err) throw err;
         if (results.length == 0) {
             res.json({
-                result: "0"
+                result: "Ocurrió un error, verifique que el id ingresado sea un numero o exista"
             });
         } else {
             res.json({

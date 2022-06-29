@@ -67,8 +67,8 @@ app.get("/cuenta/get/:id",function (req, res){
             });
         } else {
             res.json({
-                result: r.length,
-                data: r
+                result: results.length,
+                data: results
             })
         }
     });

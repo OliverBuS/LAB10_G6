@@ -86,8 +86,37 @@ app.get("/cuenta/get",function (req, res){
 
 });
 
+app.get(['/mascota/get/:id', '/mascota/get'],function(req,res) {
 
+    let id = req.params.id;
+    console.log(id)
+    if(id!=null){
+        let query = "SELECT * FROM mascota where idmascota =?";
+        conn.query(query, id, function (err,result){
+            if(err){
+                res.json({
+                    status:"error",
+                    message:"Ha ocurrido un problema, revise que el id sea el correcto"
+                });
+                return;
+            }
+            res.json(result);
+        });
+    }else{
+        let query = "SELECT * FROM mascota";
+        conn.query(query,function (err,result){
+            if(err){
+                res.json({
+                    status:"error",
+                    message:"Ha ocurrido un problema, no se ha podido acceder a la lista mascotas"
+                });
+                return;
+            }
+            res.json(result);
+        });
+    }
 
+});
 app.listen(8080,function (){
   console.log("Servidor abierto en el puerto 8080");
 });
